@@ -19,12 +19,12 @@ const TextCard: React.FC<TextCardProps> = ({ title, progress, totalDuration }) =
 
 const styles = {
   card: {
-    width: '100%' as '100%', // Explicitly cast to '100%' to satisfy TypeScript
+    width: '100%' as '100%',
     padding: '16px',
-    boxSizing: 'border-box' as 'border-box', // Explicitly cast to 'border-box'
+    boxSizing: 'border-box' as 'border-box',
     backgroundColor: '#f9f9f9',
     borderTop: '1px solid #ddd',
-    textAlign: 'center' as 'center', // Explicitly cast to 'center'
+    textAlign: 'center' as 'center',
   }
 };
 

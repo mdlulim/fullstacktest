@@ -1,19 +1,16 @@
-// src/components/Player.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import TextCard from './TextCard'; // Adjust path as necessary
+import TextCard from './TextCard';
 
 // Define the type for player instance
 type VideoJsPlayer = any;
 
-const Player: React.FC<{ src: string }> = ({ src }) => {
+const Player: React.FC<{ src: string, title: string }> = ({ src, title }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<VideoJsPlayer | null>(null);
-  const [title, setTitle] = useState(''); // State for video title
-  const [progress, setProgress] = useState(0); // State for current progress
-  const [duration, setDuration] = useState(1); // State for video duration (avoid division by zero)
-
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(1);
   useEffect(() => {
     // Define a function to initialize the player
     const initializePlayer = () => {
@@ -28,9 +25,7 @@ const Player: React.FC<{ src: string }> = ({ src }) => {
         // Set the video source
         playerRef.current.src({ src, type: 'video/mp4' });
 
-        // Fetch video metadata, title, and duration (mock function for demo purposes)
         fetchVideoMetadata().then(metadata => {
-          setTitle(metadata.title);
           setDuration(metadata.duration);
         });
 
@@ -60,13 +55,20 @@ const Player: React.FC<{ src: string }> = ({ src }) => {
     };
   }, [src]);
 
-  // Mock function to simulate fetching video metadata
-  const fetchVideoMetadata = async () => {
-    // Replace with your actual API call
-    return new Promise<{ title: string, duration: number }>((resolve) => {
-      setTimeout(() => resolve({ title: 'Sample Video Title', duration: 120 }), 1000);
-    });
+ // Fetch video metadata from the API
+ const fetchVideoMetadata = async (): Promise<{ title: string, duration: number }> => {
+  const response = await fetch('http://localhost:4000/video');
+  
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const data = await response.json();
+  console.log(data);
+  return {
+    title: data.title,
+    duration: data.duration,
   };
+};
 
   return (
     <div>

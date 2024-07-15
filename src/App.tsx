@@ -3,18 +3,22 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
 import Player from './components/Player';
+import { title } from 'process';
 
 function App() {
   const [videoSrc, setVideoSrc] = useState<string>('');
+  const [ title, setTitle ] = useState<string>('');
 
   useEffect(() => {
-    // Simulate an API call to fetch the video source URL
-    const fetchVideoSrc = async () => {
-      // Replace with your actual API call
-      const response = await new Promise<{ src: string }>((resolve) =>
-        setTimeout(() => resolve({ src: 'https://www.w3schools.com/html/mov_bbb.mp4' }), 1000)
-      );
-      setVideoSrc(response.src);
+      const fetchVideoSrc = async () => {
+      const res = await fetch('http://localhost:4000/video');
+  
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await res.json();
+      setTitle(data.title);
+      setVideoSrc(data.url);
     };
 
     fetchVideoSrc();
@@ -22,7 +26,8 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      {videoSrc ? <Player src={videoSrc} /> : <p>Loading...</p>}
+      {videoSrc ? <Player src={videoSrc} title={title} /> : <p>Loading...</p>}
+    
     </div>
   );
 }
