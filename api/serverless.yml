@@ -1,0 +1,13 @@
+service: video-api
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  video:
+    handler: handler.video
+    events:
+      - http:
+          path: video
+          method: get
