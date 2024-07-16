@@ -6,20 +6,25 @@ app.use(cors()); // Enable CORS
 
 const videos = [
   {
-    source: 'Youtube',
-    url: 'https://www.youtube.com/embed/OzY2r2JXsDM',
-    title: 'Sample Youtube Video'
+      source: 'mp4',
+      url: '//vjs.zencdn.net/v/oceans.mp4',
+      title: 'Sample MP4 Video'
   },
-  {
-    source: 'Vimeo',
-    url: 'https://vimeo.com/655102517',
-    title: 'Sample Vimeo Video'
-  },
-  {
-    source: 'Cloudflare',
-    url: 'https://customer-pbkwsh8u7tv1cfs9.cloudflarestream.com/e596a638932d72bd0ca2b645902513a7',
-    title: 'Sample Cloudflare Video'
-  }
+  // {
+  //   source: 'youtube',
+  //   url: 'http://www.youtube.com/embed/OzY2r2JXsDM',
+  //   title: 'Sample Youtube Video'
+  // },
+  // {
+  //   source: 'vimeo',
+  //   url: 'http://vimeo.com/655102517',
+  //   title: 'Sample Vimeo Video'
+  // },
+  // {
+  //   source: 'Cloudflare',
+  //   url: 'http://customer-pbkwsh8u7tv1cfs9.cloudflarestream.com/e596a638932d72bd0ca2b645902513a7',
+  //   title: 'Sample Cloudflare Video'
+  // }
 ];
 
 app.get('/video', (req, res) => {
